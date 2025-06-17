@@ -5,8 +5,8 @@ def origen (preguntar_origen):
     Si es turista nacional ingrese 2
     Si es turista internacional ingrese 3""")
 preguntar_origen=input("Seleccione una opción:")
-
-match preguntar_origen:
+while True:
+    match preguntar_origen:
         case 1:
             origen("Residente")
        
@@ -19,7 +19,7 @@ match preguntar_origen:
         case _:
             print ("No ingreso una opción posible, pruebe nuevamente")
             
-
+    break
 
 
 
@@ -34,10 +34,13 @@ else:
   print("Número inválido, ingréselo nuevamente:")
 
 def pedir_domicilio (domilicio):
-    list_domicilio =([])
-print("Ingrese sus datos domicilarios:")
+  
+    print("""Ingrese sus datos domicilarios como su país,
+      su ciudad, su barrio, su calle y por ultimo su numero de departamento""")
+    domicilio =[]
+    domicilio.append(input())
 print("Ingrese su pais:")
-list_domicilio.append(input())
+   
 print("Ingrese su ciudad:")
 list_domicilio.append(input())
 print("Ingrese su Barrio:")
