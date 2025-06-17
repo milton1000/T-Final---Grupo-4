@@ -1,13 +1,12 @@
-print ("Queremos saber donde vive")
-print ("Si reside en Bariloche ingrese 1")
-print ("Si es turista nacional ingrese 2")
-print ("Si es turista internacional ingrese 3")
 
 def origen (preguntar_origen):    
+    print ("""Queremos saber donde vive
+    Si reside en Bariloche ingrese 1
+    Si es turista nacional ingrese 2
+    Si es turista internacional ingrese 3""")
+preguntar_origen=input("Seleccione una opción:")
 
-    preguntar_origen=int(input("Seleccione una opción:"))
-
-    match preguntar_origen:
+match preguntar_origen:
         case 1:
             origen("Residente")
        
@@ -51,11 +50,11 @@ print(list_domicilio)
 
 
 def consultar_tarifa(tarifa):
-    print("¿Qué tarifa desea abonar?")
-print("Si desea la diaria, ingrese 1")
-print("Si desea la de fin de semana ingrese 2")
-print("Si desea la semanal ingrese 3")
-print("Si desea la de mes o superior ingrese 4")
+    print("""¿Qué tarifa desea abonar?
+Si desea la diaria, ingrese 1
+Si desea la de fin de semana ingrese 2
+Si desea la semanal ingrese 3
+Si desea la de mes o superior ingrese 4""")
 tarifa=([])
 num=int(input())
 match num:
@@ -86,6 +85,20 @@ match num:
             
 print(tarifa)
 
+
+def consultar_mes_de_alquiler(temporada):
+    print("Ingrese el número de mes en el que rentará el automóvil:")
+    temporada=int(input())
+    
+    match temporada:
+        case 1 or 2 or 3 or 6 or 7 or 8 or 9 or 12:
+            temporada="alta"
+
+        case 3 or 4 or 5 or 10 or 11:
+            temporada="baja"
+
+        case _:
+            print("No ingresó una opción posible, pruebe nuevamente")
 
 
 
