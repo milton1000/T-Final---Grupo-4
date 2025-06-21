@@ -154,3 +154,161 @@ def consultar_mes_de_alquiler():
                 #No se ingresó una opción válida.
                 else:
                         print("No ingresó una opción posible, pruebe nuevamente")
+
+
+
+#A partir de aquí, comienza el programa.
+# Se realiza una bienvenida del programa al usuario y se le pide su nombre y apellido
+print ("""Bienvenido al programa de alquiler de autos 2000 Automóviles - Bariloche.
+Para comenzar, ingrese su nombre y apellido a continuación""")
+Nombre= input("Nombre:")
+Apellido= input("Apellido:")
+
+##Se llama a la función 1 
+preguntar_origen()
+
+#Se pregunta si el usuario es Internacional. Si la respuesta es si, se pide el pasaporte. Caso contrario,
+#se pide el DNI
+
+if preguntar_origen =="Internacional":
+        print(input("Ingrese nu número de pasaporte:"))
+
+else:
+        print("Ingrese su número de DNI:")
+        DNI=pedir_numero(8)
+
+
+#Se solicita el número de teléfono personal
+print("Ingrese su número de teléfono personal:")
+tel_personal=pedir_numero(15)
+
+#Se pide al usuario sus datos domiciliarios
+print("Ingrese sus datos domiciliarios:")
+domicilio_personal=pedir_domicilio()
+
+#Se pide al usuario el nombre de su empresa laboral
+print(input("Ingrese el nombre de su empresa laboral:"))
+empresa=input()
+
+#Se pide al usuario el número de teléfono laboral
+print("Ingrese su número de teléfono laboral:")
+tel_laboral=pedir_numero(15)
+
+#Se pide al usuario el domicilio laboral
+print("Ahora ingrese los datos domiciliarios de su empresa:")
+domicilio_laboral=pedir_domicilio()
+
+#Se pregunta al usuario si es internacional o argentino
+#Si la respuesta es internacional, se le pedirá el nombre del hotel o agencia asociada
+#Caso contrario, si es Argentino, no se le pedirá nada.
+if preguntar_origen=="Internacional":
+        print(input("Ingrese el nombre de su hotel o agencia asociada:"))
+        hotel_o_agencia=input()
+        
+#Se pregunta al usuario si es VIP
+VIP=True
+
+if VIP == True:
+        print("Aqui tiene su tarjeta con 10 por ciento de descuento!")
+else:
+        print(input("Ingrese su forma de pago:"))
+        print(input("¿Cómo contactó a la agencia?:"))
+
+#Se solicita al usuario ingresar el auto a alquilar
+autos_disponibles=["Ford Fiesta", "Fiat Chronos","Renault Logan"]
+print(input("Ingrese el modelo de auto deseado para alquilar:"))
+modelo_deseado=input()
+if modelo_deseado=="Ford Fiesta":
+        print("""Modelo: Ford Fiesta
+                 N° Chasis: 11650)
+                 Motor:1.6
+                 Tipo de Vehiculo: Sedan""")
+
+elif modelo_deseado=="Fiat Chronos":
+        print("""Modelo: Fiat Chronos
+                 N° Chasis: 54665)
+                 Motor:1.6
+                 Tipo de Vehiculo: Sedan""")
+        
+elif modelo_deseado=="Renault Logan":
+        print("""Modelo: Renault Logan
+                 N° Chasis: 34975)
+                 Motor:1.6
+                 Tipo de Vehiculo: Sedan""")
+
+else: 
+        print("Auto Rechazado por falta de disponibilidad")
+
+#Se le pedirá al usuario la tarifa a elegir
+consultar_tarifa()
+#Se le preguntará al usuario sobre el mes de alquiler del rodado
+consultar_mes_de_alquiler()
+
+#Se le preguntará al usuario sobre la zona geográfica
+print(input("Ingrese la zona geográfica a circular con el auto:"))
+zona_geografica=input()
+
+#Se cobra un seguro brindado por la Comision Nacional de Seguros y otro especial por tierra o nieve.
+print("Se le cobrará un seguro para su vehículo brindado por la CNdS:")
+CNds=30000
+seguro_especial=20000
+
+print("Nombre:",Nombre, 
+      "Código Nro: 564",
+      "Importe CNds:",CNds,
+      "Importe seguro especial:",seguro_especial)
+
+
+#Se le solicitará la edad al usuario, si tiene más de 25 puede alquilar. Si no, no está permitido.
+print(input("Ingrese su edad:"))
+edad=pedir_numero(3)
+
+if edad >=25:
+        total_a_pagar=CNds+seguro_especial+consultar_tarifa
+
+else:
+        print("Los menores de 25 no pueden alquilar automóviles")
+
+#Según zona geográfica y temporada, se añadirán los siguientes recargos
+if consultar_mes_de_alquiler()=="alta":
+        recargo=((total_a_pagar*20)/100)
+        print("Tiene un recargo del 20 por ciento, por lo tanto, el total a pagar es:",total_a_pagar)
+elif consultar_mes_de_alquiler()=="baja":
+        recargo=((total_a_pagar*10)/100)
+        print("Tiene un recargo del 10 por ciento, por lo tanto, el total a pagar es:",total_a_pagar)
+
+else:
+   print("No hay recargos:",total_a_pagar)
+
+
+# Se imprime la factura al cliente
+print("""Factura:
+      Nombre""",Nombre,
+      """Apellido:""",Apellido,"""
+      Vehiculo:""",modelo_deseado,"""
+      tarifa:""",consultar_tarifa(),"""
+      seguros: CNdS y seguro especial
+      Período de alquiler:""",consultar_mes_de_alquiler()
+      ,"""Recargos por temporada y zona
+      Descuento VIP: Aplicado""")
+
+
+
+#Se ingresa el monto a pagar
+print("Usted debe pagar:",total_a_pagar)
+pago=False
+while pago ==False:
+        print(input("Ingrese su pago:"))
+        pago_ingresado=input()
+        if pago_ingresado<total_a_pagar:
+                deuda=total_a_pagar-pago_ingresado
+                print("Usted adeuda:",deuda)
+        elif pago_ingresado==total_a_pagar:
+                print("Pago realizado exitosamente!")
+                pago==True
+        else:
+                print("No se aceptan montos mayores al requerido")
+                pago==True
+
+
+
