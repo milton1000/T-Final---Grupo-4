@@ -155,70 +155,68 @@ def consultar_mes_de_alquiler():
                 else:
                         print("No ingresó una opción posible, pruebe nuevamente")
 
-
-
 #A partir de aquí, comienza el programa.
-# Se realiza una bienvenida del programa al usuario y se le pide su nombre y apellido
+
+#Variables que pueden cambiar puesto que no se especifica de donde se obtienen:
+vip_user = True
+autos_disponibles = ("Ford Fiesta", "Fiat Chronos", "Renault Logan")
+
+#Se realiza una bienvenida al usuario.
 print ("""Bienvenido al programa de alquiler de autos 2000 Automóviles - Bariloche.
-Para comenzar, ingrese su nombre y apellido a continuación""")
-Nombre= input("Nombre:")
-Apellido= input("Apellido:")
+       A continuación le pediremos algunos datos personales...""")
 
-##Se llama a la función 1 
-preguntar_origen()
+#Solicitud nombre y apellido
+nombre_user = input("Nombre: ")
+apellido_user = input("Apellido: ")
+#Se solicita origen del usuario (Función preguntar_origen) 
+origen_user = preguntar_origen()
 
-#Se pregunta si el usuario es Internacional. Si la respuesta es si, se pide el pasaporte. Caso contrario,
-#se pide el DNI
-
-if preguntar_origen =="Internacional":
-        print(input("Ingrese nu número de pasaporte:"))
-
+#Se solicita nro de pasaporte si es internacional y nro de DNI si es argentino.
+if origen_user == "Internacional":
+        #Se le solicita al usuario el número de pasaporte (Función pedir_numero). Un MAX de 25 números y mensaje de solicitud de pasaporte y reporte de error.
+        pasaporte_user = pedir_numero(25, "Número de pasaporte: ", "Parece que lo ingresado no sigue los lineamientos solicitados. \nPruebe nuevamente...")
+        #Al ser extranjero, no tiene DNI, por tanto en la tarifa el campo DNI aparecerá vacío.
+        dni_user = ""
+#El usuario es argentino
 else:
-        print("Ingrese su número de DNI:")
-        DNI=pedir_numero(8)
+        #Se le solicita al usuario el número de DNI (Función pedir_numero). Un MAX de 8 números y mensaje de solicitud de pasaporte y reporte de error.
+        dni_user = pedir_numero(8, "Documento Nacional de Identidad: ", "Parece que lo ingresado no sigue los lineamientos solicitados. \nPruebe nuevamente...")
+        #Al ser argentino, no tiene pasaporte, por tanto en la tarifa el campo pasaporte aparecerá vacío.
+        pasaporte_user = ""
 
+#Se solicita el número de teléfono personal.
+tel_user = pedir_numero(15, "Ingrese su número de teléfono personal: ", "Parece que lo ingresado no sigue los lineamientos solicitados. \nRecuerde incluir el código de zona y pais \nPruebe nuevamente...")
+#Se solicita datos domiciliarios (Función pedir_domicilio).
+domi_user = pedir_domicilio("A continuación ingrese los datos de su domicilio personal")
+#Se solicita nombre de empresa laboral.
+empresa_user = input("Ingrese el nombre de su empresa laboral: ")
+#Se solicita el número de teléfono laboral (Función pedir_domicilio).
+tel_trabajo = pedir_numero(15, "Ingrese su número de teléfono laboral: ", "Parece que lo ingresado no sigue los lineamientos solicitados. \nRecuerde incluir el código de zona y pais \nPruebe nuevamente...")
+#Se solicita datos de domicilio laboral.
+domi_user = pedir_domicilio("A continuación ingrese los datos de su domicilio laboral")
 
-#Se solicita el número de teléfono personal
-print("Ingrese su número de teléfono personal:")
-tel_personal=pedir_numero(15)
+#Se obtiene datos de hotel o agencia asoc si no vive en bariloche.
+if origen_user == "Internacional" or origen_user == "Argentino":
+        hotel_user = input("Ingrese el nombre de su hotel o agencia asociada: ")
 
-#Se pide al usuario sus datos domiciliarios
-print("Ingrese sus datos domiciliarios:")
-domicilio_personal=pedir_domicilio()
+#Si el usuario es VIP.
+if vip_user == True:
+        #Entrega de tarjeta.
+        print("Aqui tiene su tarjeta VIP con 10 por ciento de descuento!\nRecuerda que caduca el 20 de julio de 2026")
+        #Registramos el descuento para luego incorporarlo a la suma total.
+        dto_vip = 10
+        form_pgo = "Tarjeta VIP"
 
-#Se pide al usuario el nombre de su empresa laboral
-print(input("Ingrese el nombre de su empresa laboral:"))
-empresa=input()
-
-#Se pide al usuario el número de teléfono laboral
-print("Ingrese su número de teléfono laboral:")
-tel_laboral=pedir_numero(15)
-
-#Se pide al usuario el domicilio laboral
-print("Ahora ingrese los datos domiciliarios de su empresa:")
-domicilio_laboral=pedir_domicilio()
-
-#Se pregunta al usuario si es internacional o argentino
-#Si la respuesta es internacional, se le pedirá el nombre del hotel o agencia asociada
-#Caso contrario, si es Argentino, no se le pedirá nada.
-if preguntar_origen=="Internacional":
-        print(input("Ingrese el nombre de su hotel o agencia asociada:"))
-        hotel_o_agencia=input()
-        
-#Se pregunta al usuario si es VIP
-VIP=True
-
-if VIP == True:
-        print("Aqui tiene su tarjeta con 10 por ciento de descuento!")
+#Si el usuario no es VIP
 else:
-        print(input("Ingrese su forma de pago:"))
-        print(input("¿Cómo contactó a la agencia?:"))
+        #Se registra forma de pago y como contactó la agencia.
+        form_pgo = input("Ingrese su forma de pago: ")
+        cntact_agencia = input("¿Cómo contactó a la agencia?: ")
 
-#Se solicita al usuario ingresar el auto a alquilar
-autos_disponibles=["Ford Fiesta", "Fiat Chronos","Renault Logan"]
-print(input("Ingrese el modelo de auto deseado para alquilar:"))
-modelo_deseado=input()
-if modelo_deseado=="Ford Fiesta":
+#Ingreso del auto que se desea alquilar
+modelo_deseado=input("Ingrese el modelo de auto deseado para alquilar: ")
+
+if modelo_deseado in autos_disponibles:
         print("""Modelo: Ford Fiesta
                  N° Chasis: 11650)
                  Motor:1.6
