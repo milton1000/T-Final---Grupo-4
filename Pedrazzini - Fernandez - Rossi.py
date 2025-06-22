@@ -176,7 +176,7 @@ def eleccion_auto(autos_disp):
 #A partir de aquí, comienza el programa.
 
 #Variables que pueden cambiar puesto que no se especifica de donde se obtienen:
-vip_user = True
+vip_user = False
 #("Auto", nro de chasis, motor, tipo de vehículo, multiplicador)
 autos_disponibles = (("Ford Fiesta", 1234, "cuatro cilindros 1.6V", "cuatro puertas", 1),
                      ("Fiat Cronos", 2345, "1.3 fire.fly", "cuatro puertas", 1),
@@ -234,6 +234,7 @@ else:
         #Se registra forma de pago y como contactó la agencia.
         forma_pago = input("Ingrese su forma de pago: ")
         cntact_agencia = input("¿Cómo contactó a la agencia?: ")
+        dto_vip = 0
 
 #Elección de autos a partir de los que estan disponibles.
 auto_user = eleccion_auto(autos_disponibles)
@@ -309,7 +310,7 @@ else:
                       Calle: {domi_trabajo[3]}
                       Automovil: {auto_user[0]}
                       Número de Chasis: {auto_user[1]}
-                      Motor: {auto_user[2]}
+                       Motor: {auto_user[2]}
                       Tipo de Vehículo: {auto_user[3]}
                       Código de Tarifa: {tarifa_user[0]}
                       Nombre de Tarifa: {tarifa_user[1]}
