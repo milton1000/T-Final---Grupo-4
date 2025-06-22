@@ -65,7 +65,7 @@ def pedir_domicilio (msj_inicio):
         @Objetivo: Obtener la dirección del usuario.
         @Descripción: Se le consulta al usuario diferentes datos de un domicilio y a medida que contesta se van agregando estos datos a una lista con los datos domiciliarios.
         
-        @Parametro: msj_inicio (msj_inicio)
+        @Parametro: msj_inicio (str)
         
         @return: domicilio (list)
         """
@@ -155,11 +155,38 @@ def consultar_mes_de_alquiler():
                 else:
                         print("No ingresó una opción posible, pruebe nuevamente")
 
+def eleccion_auto(autos_disp):
+        """
+        @Objetivo: Obtener el auto que desea el usuario.
+        @Descripción: Se le consulta al usuario el auto que desea. Se ve si esta disponible. Si está, se regresa la data del auto, si no esta se regresa False.
+        
+        @Parametro: autos_disp (list or tuple)
+        
+        @return: disonible (list or boolean)
+        """
+        #Ingreso del auto que se desea alquilar.
+        modelo_deseado = input("Ingrese el modelo de auto deseado para alquilar: ")
+        #Tomamos como valor default que el auto no esta disponible.
+        disponible = False
+        
+        #Se recorre la lista de autos disponibles para ver si el ingresado esta presente.
+        for i in autos_disp:
+                #Se encuentra el modelo deseado.
+                if modelo_deseado == i[0]:
+                        disponible = i
+        
+        return disponible
+        
+
+
 #A partir de aquí, comienza el programa.
 
 #Variables que pueden cambiar puesto que no se especifica de donde se obtienen:
 vip_user = True
-autos_disponibles = ("Ford Fiesta", "Fiat Chronos", "Renault Logan")
+autos_disponibles = (("Ford Fiesta", 1234, "cuatro cilindros 1.6V", "cuatro puertas"),
+                     ("Fiat Cronos", 2345, "1.3 fire.fly", "cuatro puertas"),
+                     ("Renault Logan", 3456, "1.6L 8V 85HP", "cuatro puertas"),
+                     ("Toyota Hilux", 4567, " 2.4L 150 CV ", "camioneta"))
 
 #Se realiza una bienvenida al usuario.
 print ("""Bienvenido al programa de alquiler de autos 2000 Automóviles - Bariloche.
@@ -214,29 +241,14 @@ else:
         cntact_agencia = input("¿Cómo contactó a la agencia?: ")
 
 #Ingreso del auto que se desea alquilar
-modelo_deseado=input("Ingrese el modelo de auto deseado para alquilar: ")
+modelo_deseado = input("Ingrese el modelo de auto deseado para alquilar: ")
+#Seteamos la disponibilidad del 
+auto_disp = False
 
-if modelo_deseado in autos_disponibles:
-        print("""Modelo: Ford Fiesta
-                 N° Chasis: 11650)
-                 Motor:1.6
-                 Tipo de Vehiculo: Sedan""")
-
-elif modelo_deseado=="Fiat Chronos":
-        print("""Modelo: Fiat Chronos
-                 N° Chasis: 54665)
-                 Motor:1.6
-                 Tipo de Vehiculo: Sedan""")
+for i in autos_disponibles:
+        if modelo_deseado == i[0]:
+                auto_disp = i
         
-elif modelo_deseado=="Renault Logan":
-        print("""Modelo: Renault Logan
-                 N° Chasis: 34975)
-                 Motor:1.6
-                 Tipo de Vehiculo: Sedan""")
-
-else: 
-        print("Auto Rechazado por falta de disponibilidad")
-
 #Se le pedirá al usuario la tarifa a elegir
 consultar_tarifa()
 #Se le preguntará al usuario sobre el mes de alquiler del rodado
